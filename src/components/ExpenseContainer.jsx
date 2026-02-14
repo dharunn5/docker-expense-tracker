@@ -6,8 +6,13 @@ import {v4 as uuid} from 'uuid';
 const EXPENSES =[
     {
         id : uuid(),
+        title:"Income",
+        amount:50000,
+    },
+    {
+        id:uuid(),
         title:"Expense 1",
-        amount:100,
+        amount:-100,
     },
     {
         id:uuid(),
@@ -29,7 +34,7 @@ export default function ExpenseContainer() {
       const response = await fetch('http://localhost:3000/expense');
     const data= await response.json();;
     setExpenses(data);
-    }  catch {
+    }  catch(error) {
       console.log('failed to fetch expenses:',error)
     }
 
@@ -37,7 +42,7 @@ export default function ExpenseContainer() {
   console.log('expenses')
 
   useEffect(()=> {
-  fetchExpenses();
+  //fetchExpenses();
  },[])
    /*const addExpense=(title,amount) => {
     setExpenses([
@@ -55,7 +60,7 @@ export default function ExpenseContainer() {
       const response = await fetch('http://localhost:3000/expense', {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({title,amount})
+        body: JSON.stringify({title, amount: -Math.abs(amount)})
       });
       if(response.ok){
         const newItem = await response.json();
@@ -103,7 +108,7 @@ export default function ExpenseContainer() {
     const response = await fetch(`http://localhost:3000/expense/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, amount }),
+      body: JSON.stringify({ title, amount: -Math.abs(amount) }),
     });
 
     if (response.ok) {

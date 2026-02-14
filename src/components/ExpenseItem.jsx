@@ -50,7 +50,7 @@ export default function ExpenseItem(props) {
     <>
       <div className={`expense-item ${type}`}>
         <div className="expense-title">{title}</div>
-        <div className="expense-amount">{amount}</div>
+        <div className="expense-amount">{Math.abs(amount)}</div>
         <div className='delete-button-overlay'>
           <button onClick={handleEdit}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
